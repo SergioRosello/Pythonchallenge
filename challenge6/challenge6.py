@@ -21,9 +21,3 @@ while True:
     string = string + string.join(ZipFile('channel.zip', 'r').getinfo(file.split('/')[2]).comment.decode())
 
 print(string)
-
-
-# This has told me to collect the comments.
-# I suppose I will iterate over every file, and collect the lines containing a #
-
-# Reading the zipped file comments
