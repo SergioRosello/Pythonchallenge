@@ -1,5 +1,6 @@
-import sys
-a = [1, 11, 21, 1211, 111221]
+from itertools import groupby
+
+#a = [1, 11, 21, 1211, 111221]
 
 class LookAndSaySequence:
     def __iter__(self):
@@ -12,26 +13,18 @@ class LookAndSaySequence:
         return x
 
     def getNextElement(self):
-        nextElement = self.nextElement
-        stringed = str(self.nextElement)
-        i = 0
-        while i < stringed:
-            # The element has already occoured once
-            occouranceCount = 1
-            # The value we have to look forward to
-            value = int(stringed[i])
-            if stringed[i]:
-                i += 1
-
-        return nextElement
+        groups = groupby(str(self.nextElement))
+        counts = [(label, sum(1 for _ in group)) for label, group in groups]
+        return int("".join("{}{}".format(count, label) for label, count in counts))
 
 LASSeq = LookAndSaySequence()
 iterator = iter(LASSeq)
 
 i = 0
-while i < 3:
-    print(next(iterator))
+while i < 30:
+    next(iterator)
     i += 1
+print(len(str(next(iterator))))
 
 # Fuuuck...
 # I thought this was a sequence in base 3, and it turns out
@@ -45,12 +38,3 @@ def baseToNumber(numberinBase, baseOfNumberInBase):
         number = number + item * baseOfNumberInBase**(i)
 
     return number
-
-#parseda = []
-#for number in a:
-#    parseda.append([int(x) for x in str(number)])
-#
-#for number in parseda:
-#    print(baseToNumber(number, 3))
-
-
